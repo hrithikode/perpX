@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import { useState, useEffect } from "react";
 import api from "../lib/axios";
@@ -70,11 +70,11 @@ useEffect(() => {
     );
 
   ws.onmessage = (
-    event
+    events
   ) => {
     const data =
       JSON.parse(
-        event.data
+        events.data
       );
 
     setBtcPrice(
@@ -149,7 +149,7 @@ const handleCloseOrder = async (
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-6">
-        {/* Header */}
+        
         <p className="text-sm text-green-400 mt-2">
             Available Balance: ${balance}
         </p>
@@ -168,7 +168,7 @@ const handleCloseOrder = async (
           </p>
         </div>
 
-        {/* Quantity Input */}
+       
         <div className="space-y-2">
           <label className="text-sm text-zinc-400">
             Quantity (BTC)
@@ -185,7 +185,7 @@ const handleCloseOrder = async (
           />
         </div>
 
-        {/* Leverage Select */}
+        
         <div className="space-y-2">
           <label className="text-sm text-zinc-400">
             Leverage
@@ -211,7 +211,7 @@ const handleCloseOrder = async (
           </select>
         </div>
 
-        {/* Estimated Margin */}
+     
         <div className="bg-zinc-800 rounded-xl p-4">
           <p className="text-zinc-400 text-sm">
             Estimated Required Margin
@@ -222,7 +222,7 @@ const handleCloseOrder = async (
           </h2>
         </div>
 
-        {/* Action Buttons */}
+       
         <div className="grid grid-cols-2 gap-4">
           <button onClick={() => handleCreateOrder("long")} className="bg-green-500 text-black font-bold p-3 rounded-xl">
             Long
@@ -327,4 +327,4 @@ const handleCloseOrder = async (
       </div>
     </div>
   );
-}
+}*/

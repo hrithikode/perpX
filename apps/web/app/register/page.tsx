@@ -1,55 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "../lib/axios";
-import axios from "axios";
 
 export default function RegisterPage() {
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-
+  const handleRegister = async () => {
     try {
       setLoading(true);
+      setMessage("");
 
-      await api.post(
-        "/api/auth/register",
-        formData,
-        
-      );
+      await api.post("/api/auth/register", {
+        name,
+        email,
+        password
+      });
 
-      alert("Registration successful");
+      setMessage("Registration successful. Redirecting to login...");
 
-      router.push("/dashboard");
-    } catch (error: unknown) {
+      setTimeout(() => {
+        router.push("/");
+      }, 1500);
+    } catch (error) {
       console.error(error);
-
-      const message = axios.isAxiosError(error)
-        ? error?.response?.data?.message
-        : undefined;
-
-      alert(message || "Registration failed");
+      setMessage("Registration failed");
     } finally {
       setLoading(false);
     }
@@ -57,54 +39,61 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-5"
-      >
-        <h1 className="text-3xl font-bold">
-          Register
-        </h1>
+      <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">Create Account</h1>
+          <p className="text-zinc-400 mt-2 text-sm">
+            Register to start trading BTC perpetuals
+          </p>
+        </div>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 outline-none"
-          required
-        />
+        {message && (
+          <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-3">
+            <p className="text-sm text-blue-400 font-medium">{message}</p>
+          </div>
+        )}
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 outline-none"
-          required
-        />
+        <div className="space-y-2">
+          <label className="text-sm text-zinc-400">Full Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 outline-none"
+          />
+        </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 outline-none"
-          required
-        />
+        <div className="space-y-2">
+          <label className="text-sm text-zinc-400">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 outline-none"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm text-zinc-400">Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 outline-none"
+          />
+        </div>
 
         <button
-          type="submit"
+          onClick={handleRegister}
           disabled={loading}
           className="w-full bg-white text-black font-bold p-3 rounded-xl"
         >
-          {loading
-            ? "Creating Account..."
-            : "Register"}
+          {loading ? "Creating Account..." : "Register"}
         </button>
-      </form>
+      </div>
     </div>
   );
 }
