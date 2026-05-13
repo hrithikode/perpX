@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import balanceRouter from './routes/balance.routes.js'
 import errorHandler from './middleware/error.middleware.js';
 import tradeRouter from './routes/trade.routes.js';
+import "./ws.js";
 
 const app = express();
 

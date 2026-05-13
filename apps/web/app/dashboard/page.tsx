@@ -26,10 +26,8 @@ export default function Dashboard() {
 
 const [closedOrders, setClosedOrders] =
   useState<Order[]>([]);
-
-  // temporary frontend display price
-  // later this will come from poller service
-  const btcPrice = 95000;
+const [btcPrice, setBtcPrice] =
+  useState(0);
 
     const fetchBalance = async () => {
   try {
@@ -65,6 +63,28 @@ const [closedOrders, setClosedOrders] =
 useEffect(() => {
   fetchOrders();
   fetchBalance();
+
+  const ws =
+    new WebSocket(
+      "ws://localhost:8080"
+    );
+
+  ws.onmessage = (
+    event
+  ) => {
+    const data =
+      JSON.parse(
+        event.data
+      );
+
+    setBtcPrice(
+      Number(data.price)
+    );
+  };
+
+  return () => {
+    ws.close();
+  };
 }, []);
 
 const handleCloseOrder = async (
