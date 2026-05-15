@@ -1,22 +1,8 @@
 "use client";
 
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-
-import {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "@/components/ui/tabs";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell,TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
 
@@ -34,9 +20,7 @@ type Order = {
 type Props = {
   openOrders: Order[];
   closedOrders: Order[];
-  handleCloseOrder: (
-    orderId: string
-  ) => Promise<void>;
+  handleCloseOrder: ( orderId: string) => Promise<void>;
   message: string;
   isLoading: boolean;
 };
@@ -60,7 +44,6 @@ export default function OrdersSection({
 
       <Tabs defaultValue="open">
 
-
         <TabsList>
           <TabsTrigger value="open">
             Open Orders
@@ -81,7 +64,6 @@ export default function OrdersSection({
                 <TableHead>Quantity</TableHead>
                 <TableHead>Leverage</TableHead>
                 <TableHead>Status</TableHead>
-               
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
