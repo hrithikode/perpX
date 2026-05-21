@@ -15,7 +15,7 @@ export default function useMarketPrice() {
 
   useEffect(() => {
     console.log("creating webSocket...");
-    const ws = new WebSocket("ws://localhost:4000");
+    const ws = new WebSocket(process.env.NEXT_PUBLIC_WS_URL!);
 
     ws.onopen = () => {
       console.log("Connected to WS");
