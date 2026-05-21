@@ -16,9 +16,13 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: [
+    "http://localhost:3000",
+    "https://perpx.hrithik.space"
+  ],
   credentials: true,
 }))
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -27,6 +31,12 @@ app.use('/api/auth', authRoutes);
 app.use("/balance", balanceRouter);
 app.use('/trade', tradeRouter);
 
+
+app.get("/health", (_, res) => {
+  return res.status(200).json({
+    status: "ok"
+  });
+});
 
 app.use(errorHandler);
 

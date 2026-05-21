@@ -9,6 +9,7 @@ export function proxy(req: NextRequest) {
         new URL("/login", req.url)
         );
     }  
+    return NextResponse.next();
 }
 
 export const config = {
