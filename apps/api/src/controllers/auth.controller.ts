@@ -52,6 +52,8 @@ export const register = async (req: Request, res: Response) => {
             httpOnly: true,
             sameSite: "none",
             secure: true,
+            domain: ".hrithik.space",
+            path: "/"
         })
 
         return res.json({
@@ -106,6 +108,8 @@ export const login = async (req: Request, res: Response) => {
             httpOnly: true,
             sameSite: "none",
             secure: true,
+            domain: ".hrithik.space",
+            path: "/"
         });
 
         return res.json({
@@ -125,7 +129,9 @@ export const logout = async (req: Request, res: Response) => {
         res.clearCookie("token", {
             httpOnly: true,
             sameSite: "none",
-            secure: true
+            secure: true,
+            domain: ".hrithik.space",
+            path: "/"
         });
         return res.json({ message: "logout successfully" });
     } catch (error) {

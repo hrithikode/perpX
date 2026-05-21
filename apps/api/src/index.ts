@@ -32,7 +32,7 @@ app.use("/balance", balanceRouter);
 app.use('/trade', tradeRouter);
 
 
-app.get("/health", (_, res) => {
+app.get("/health", (req, res) => {
   return res.status(200).json({
     status: "ok"
   });
