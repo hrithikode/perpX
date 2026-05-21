@@ -195,9 +195,7 @@ export default function RightOrderSection({
             onClick={handlePlaceOrder}
             disabled={createOrderLoading}
           >
-            {createOrderLoading
-              ? "Creating Order..."
-              : `PLACE ${positionType.toUpperCase()} ORDER`}
+            Create Order
           </Button>
       </div>
     </div>
